@@ -104,8 +104,8 @@ namespace GroupAssignment_Accounts
 
             public override string ToString()
             {
-                string transactionType = Amount >= 0 ? "Deposit" : "Withdraw";
-                return $"{transactionType} of {Math.Abs(Amount)} made by {Originator.Name} at {Time}.";
+                string transactionType = Amount >= 0 ? "deposited" : "withdrawn";
+                return $"{AccountNumber} ${Math.Abs(Amount):N2} {transactionType} by {Originator.Name} on {Time:yyyy-MM-dd HH:mm}";
             }
         }
 //DAYTIME STRUCT
@@ -222,10 +222,10 @@ namespace GroupAssignment_Accounts
 
             public override string ToString()
             {
-                return $"{Name} - Authenticated: {IsAuthenticated}";
+                return $"[{Name}, {Name} {(IsAuthenticated ? "" : " Not logged in")}]";
             }
         }
-        //ACCOUNT CLASS
+//ACCOUNT CLASS
         public abstract class Account
         {
             private static int LAST_NUMBER = 100000;
@@ -276,10 +276,10 @@ namespace GroupAssignment_Accounts
 
             public override string ToString()
             {
-                string userList = string.Join(", ", users.Select(user => user.Name));
-                string transactionList = string.Join("\n", transactions.Select((transaction, index) => $"{index + 1}. {transaction}"));
+                string userList = string.Join(", ", users.Select(user => $"{user.Name} {(user.IsAuthenticated ? "Logged in" : "Not logged in")}"));
+                string transactionList = string.Join("\n   ", transactions.Select((transaction, index) => $"{index + 1}. {transaction}"));
 
-                return $"Account Number: {Number}\nUsers: {userList}\nBalance: {Balance}\nTransactions:\n{transactionList}";
+                return $"{Number} {userList} ${Balance:N2} - transactions ({transactions.Count})\n   {transactionList}";
             }
         }
 
@@ -447,7 +447,10 @@ namespace GroupAssignment_Accounts
             }
 
 
-            //BANK CLASS
+
+
+
+//BANK CLASS
 
 
             public static class Bank
