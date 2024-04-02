@@ -99,7 +99,7 @@ namespace GroupAssignment_Accounts
                 AccountNumber = accountNumber;
                 Amount = amount;
                 Originator = person;
-                Time = Utils.Now;
+                Time = Utils.Time;
             }
 
             public override string ToString()
@@ -126,22 +126,24 @@ namespace GroupAssignment_Accounts
             public override string ToString()
             {
                 long remainingMinutes = minutes;
-                long year = remainingMinutes / (518400 * 60);
-                remainingMinutes %= (518400 * 60);
-                long month = remainingMinutes / (43200 * 60);
-                remainingMinutes %= (43200 * 60);
-                long day = remainingMinutes / (1440 * 60);
-                remainingMinutes %= (1440 * 60);
-                long hour = remainingMinutes / (60 * 60);
-                remainingMinutes %= (60 * 60);
-                long minute = remainingMinutes / 60;
+                long day = remainingMinutes / (24 * 60);
+                remainingMinutes %= (24 * 60);
+                long hour = remainingMinutes / 60;
+                remainingMinutes %= 60;
+                long minute = remainingMinutes;
 
-                return $"{year:0000}-{month + 1:00}-{day + 1:00} {hour:00}:{minute:00}";
+                long year = day / 365;
+                day %= 365;
+                long month = day / 30; // Approximation, as not all months have 30 days
+                day %= 30;
+
+                return $"{2024:0000}-{month + 1:00}-{day + 1:00} {hour:00}:{minute:00}";
             }
+
         }
 
 
-//LOGGER CLASS
+        //LOGGER CLASS
         public static class Logger
         {
             private static readonly List<string> loginEvents = new List<string>();
@@ -151,7 +153,8 @@ namespace GroupAssignment_Accounts
             {
                 if (args is LoginEventArgs loginArgs)
                 {
-                    string log = $"{loginArgs.PersonName} - Login {(loginArgs.Success ? "Successful" : "Failed")} at {Utils.Now}";
+                    string status = loginArgs.Success ? "successfully" : "unsuccessfully";
+                    string log = $"{loginArgs.PersonName} logged in {status} on {Utils.Time}";
                     loginEvents.Add(log);
                 }
             }
@@ -160,24 +163,26 @@ namespace GroupAssignment_Accounts
             {
                 if (args is TransactionEventArgs transactionArgs)
                 {
-                    string operation = transactionArgs.Amount >= 0 ? "Deposit" : "Withdraw";
-                    string log = $"{transactionArgs.PersonName} - {operation} of {Math.Abs(transactionArgs.Amount)} {(transactionArgs.Success ? "Successful" : "Failed")} at {Utils.Now}";
+                    string status = transactionArgs.Success ? "successfully" : "unsuccessfully";
+                    string operation = transactionArgs.Amount >= 0 ? "deposit" : "withdraw";
+                    string log = $"{transactionArgs.PersonName} {operation} ${(Math.Abs(transactionArgs.Amount)).ToString("F2")} {status} on {Utils.Now}";
                     transactionEvents.Add(log);
                 }
             }
 
             public static void ShowLoginEvents()
             {
-                Console.WriteLine($"Current Time: {Utils.Now}");
+                Console.WriteLine($"Login events as of {Utils.Time}");
                 for (int i = 0; i < loginEvents.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {loginEvents[i]}");
                 }
             }
 
+
             public static void ShowTransactionEvents()
             {
-                Console.WriteLine($"Current Time: {Utils.Now}");
+                Console.WriteLine($"Transaction events as of {Utils.Time}");
                 for (int i = 0; i < transactionEvents.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {transactionEvents[i]}");
