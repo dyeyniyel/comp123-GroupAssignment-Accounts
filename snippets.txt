@@ -1,0 +1,4 @@
+docker run -e VALIDATE_CSHARP=true -e RUN_LOCAL=true -v "$(pwd)":/tmp/lint github/super-linter
+git fetch upstream
+git merge upstream/master
+git push
