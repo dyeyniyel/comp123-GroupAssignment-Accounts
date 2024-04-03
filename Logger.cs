@@ -21,7 +21,7 @@ public static class Logger
     public static void TransactionHandler(object sender, EventArgs args)
     {
         ArgumentNullException.ThrowIfNull(sender);
-        
+
         if (args is TransactionEventArgs transactionArgs)
         {
             string status = transactionArgs.Success ? "successfully" : "unsuccessfully";
