@@ -7,7 +7,7 @@ public abstract class Account
     private readonly List<Person> users = new List<Person>();
     public readonly List<Transaction> transactions = new List<Transaction>();
 
-    public event EventHandler OnTransaction;
+    public event EventHandler? OnTransaction;
 
     public string Number { get; }
     public double Balance { get; protected set; }
