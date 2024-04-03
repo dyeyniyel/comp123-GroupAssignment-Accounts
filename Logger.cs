@@ -6,8 +6,10 @@ public static class Logger
     private static readonly List<string> loginEvents = new List<string>();
     private static readonly List<string> transactionEvents = new List<string>();
 
-    public static void LoginHandler(object sender, EventArgs args)
+    public static void LoginHandler(object? sender, EventArgs args)
     {
+        ArgumentNullException.ThrowIfNull(sender);
+
         if (args is LoginEventArgs loginArgs)
         {
             string status = loginArgs.Success ? "successfully" : "unsuccessfully";
@@ -18,6 +20,8 @@ public static class Logger
 
     public static void TransactionHandler(object sender, EventArgs args)
     {
+        ArgumentNullException.ThrowIfNull(sender);
+        
         if (args is TransactionEventArgs transactionArgs)
         {
             string status = transactionArgs.Success ? "successfully" : "unsuccessfully";
