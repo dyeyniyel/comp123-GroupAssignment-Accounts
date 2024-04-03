@@ -26,8 +26,8 @@ namespace GroupAssignment_Accounts
     {
         static void Main(string[] args)
         {
-         //   Testing
-         //   Use the following code in your test harness.
+            //   Testing
+            //   Use the following code in your test harness.
 
             Console.WriteLine("\nAll acounts:");
             Bank.PrintAccounts();
@@ -118,71 +118,69 @@ namespace GroupAssignment_Accounts
             b.Withdraw(111.11, p7);
             Console.WriteLine(b);
 
-                       Console.WriteLine("\n\nExceptions:");
-                       //The following will cause exception
-                       try
-                       {
-                           p8.Login("911");            //incorrect password
-                       }
-                       catch (AccountException e) { Console.WriteLine(e.Message); }
+            Console.WriteLine("\n\nExceptions:");
+            //The following will cause exception
+            try
+            {
+                p8.Login("911");            //incorrect password
+            }
+            catch (AccountException e) { Console.WriteLine(e.Message); }
 
-                       try
-                       {
-                           p3.Logout();
-                           a.DoPurchase(12.5, p3);     //exception user is not logged in
-                       }
-                       catch (AccountException e) { Console.WriteLine(e.Message); }
+            try
+            {
+                p3.Logout();
+                a.DoPurchase(12.5, p3);     //exception user is not logged in
+            }
+            catch (AccountException e) { Console.WriteLine(e.Message); }
 
-                       try
-                       {
-                           a.DoPurchase(12.5, p0);     //user is not associated with this account
-                       }
-                       catch (AccountException e) { Console.WriteLine(e.Message); }
+            try
+            {
+                a.DoPurchase(12.5, p0);     //user is not associated with this account
+            }
+            catch (AccountException e) { Console.WriteLine(e.Message); }
 
-                       try
-                       {
-                           a.DoPurchase(5825, p4);     //credit limit exceeded
-                       }
-                       catch (AccountException e) { Console.WriteLine(e.Message); }
-                       try
-                       {
-                           c.Withdraw(1500, p6);       //no overdraft
-                       }
-                       catch (AccountException e) { Console.WriteLine(e.Message); }
+            try
+            {
+                a.DoPurchase(5825, p4);     //credit limit exceeded
+            }
+            catch (AccountException e) { Console.WriteLine(e.Message); }
+            try
+            {
+                c.Withdraw(1500, p6);       //no overdraft
+            }
+            catch (AccountException e) { Console.WriteLine(e.Message); }
 
-                       try
-                       {
-                           Bank.GetAccount("CK-100018"); //account does not exist
-                       }
-                       catch (AccountException e) { Console.WriteLine(e.Message); }
+            try
+            {
+                Bank.GetAccount("CK-100018"); //account does not exist
+            }
+            catch (AccountException e) { Console.WriteLine(e.Message); }
 
-                       try
-                       {
-                           Bank.GetPerson("Trudeau");  //user does not exist
-                       }
-                       catch (AccountException e) { Console.WriteLine(e.Message); }
+            try
+            {
+                Bank.GetPerson("Trudeau");  //user does not exist
+            }
+            catch (AccountException e) { Console.WriteLine(e.Message); }
 
-                       //show all transactions
-                       Console.WriteLine("\n\nAll transactions");
-                       foreach (var transaction in Bank.GetAllTransactions())
-                           Console.WriteLine(transaction);
-                       foreach (var keyValuePair in Bank.ACCOUNTS)
-                       {
-                           Account account = keyValuePair.Value;
-                           Console.WriteLine("\nBefore PrepareMonthlyReport()");
-                           Console.WriteLine(account);
+            //show all transactions
+            Console.WriteLine("\n\nAll transactions");
+            foreach (var transaction in Bank.GetAllTransactions())
+                Console.WriteLine(transaction);
+            foreach (var keyValuePair in Bank.ACCOUNTS)
+            {
+                Account account = keyValuePair.Value;
+                Console.WriteLine("\nBefore PrepareMonthlyReport()");
+                Console.WriteLine(account);
 
-                           Console.WriteLine("\nAfter PrepareMonthlyReport()");
-                           account.PrepareMonthlyStatement();   //all transactions are cleared, balance changes
-                           Console.WriteLine(account);
-                       }
+                Console.WriteLine("\nAfter PrepareMonthlyReport()");
+                account.PrepareMonthlyStatement();   //all transactions are cleared, balance changes
+                Console.WriteLine(account);
+            }
 
-                       Logger.ShowLoginEvents();
-                       Logger.ShowTransactionEvents();
-            
+            Logger.ShowLoginEvents();
+            Logger.ShowTransactionEvents();
 
             Console.ReadLine();
         }
     }
-
 }
