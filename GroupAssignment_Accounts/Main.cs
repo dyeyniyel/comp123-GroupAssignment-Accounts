@@ -9,7 +9,7 @@ namespace GroupAssignment_Accounts
     public class MainAccount
     {
 
-//ExceptionType ENUM
+        //ExceptionType ENUM
         public enum ExceptionType
         {
             ACCOUNT_DOES_NOT_EXIST,
@@ -20,7 +20,7 @@ namespace GroupAssignment_Accounts
             USER_DOES_NOT_EXIST,
             USER_NOT_LOGGED_IN
         }
-//AccountType ENUM
+        //AccountType ENUM
         public enum AccountType
         {
             Checking,
@@ -28,7 +28,7 @@ namespace GroupAssignment_Accounts
             Visa
         }
 
-//UTILS CLASS
+        //UTILS CLASS
         //this class depends of the implementation of the following types:
         //DayTime struct and AccountType enum
         public static class Utils
@@ -54,7 +54,7 @@ namespace GroupAssignment_Accounts
 
         }
 
-//AccountException CLASS
+        //AccountException CLASS
         public class AccountException : Exception
         {
             public AccountException(ExceptionType reason) : base(reason.ToString())
@@ -62,7 +62,7 @@ namespace GroupAssignment_Accounts
             }
         }
 
-//LoginEventArgs CLASS
+        //LoginEventArgs CLASS
         public class LoginEventArgs : EventArgs
         {
             public string PersonName { get; }
@@ -75,7 +75,7 @@ namespace GroupAssignment_Accounts
             }
         }
 
-//TransactionEventArgs CLASS
+        //TransactionEventArgs CLASS
         public class TransactionEventArgs : LoginEventArgs
         {
             public double Amount { get; }
@@ -86,7 +86,7 @@ namespace GroupAssignment_Accounts
             }
         }
 
-//TRANSACTION STRUCT
+        //TRANSACTION STRUCT
         public struct Transaction
         {
             public string AccountNumber { get; }
@@ -108,7 +108,7 @@ namespace GroupAssignment_Accounts
                 return $"{AccountNumber} ${Math.Abs(Amount):N2} {transactionType} by {Originator.Name} on {Time:yyyy-MM-dd HH:mm}";
             }
         }
-//DAYTIME STRUCT
+        //DAYTIME STRUCT
         public struct DayTime
         {
             private long minutes;
@@ -190,7 +190,7 @@ namespace GroupAssignment_Accounts
             }
         }
 
-//PERSON CLASS
+        //PERSON CLASS
         public class Person
         {
             private string password;
@@ -230,7 +230,7 @@ namespace GroupAssignment_Accounts
                 return $"[{Name}, {Name} {(IsAuthenticated ? "" : " Not logged in")}]";
             }
         }
-//ACCOUNT CLASS
+        //ACCOUNT CLASS
         public abstract class Account
         {
             private static int LAST_NUMBER = 100000;
@@ -288,7 +288,7 @@ namespace GroupAssignment_Accounts
             }
         }
 
-//CHECKINGACCOUNT CLASS
+        //CHECKINGACCOUNT CLASS
         public class CheckingAccount : Account, ITransaction
         {
             private const double COST_PER_TRANSACTION = 0.05;
@@ -340,7 +340,7 @@ namespace GroupAssignment_Accounts
             }
         }
 
-//SAVINGACCOUNT CLASS
+        //SAVINGACCOUNT CLASS
 
         public class SavingAccount : Account, ITransaction
         {
@@ -393,10 +393,10 @@ namespace GroupAssignment_Accounts
             }
         }
 
-//VISAACCOUNT CLASS
-        
-        
-    public class VisaAccount : Account, ITransaction
+        //VISAACCOUNT CLASS
+
+
+        public class VisaAccount : Account, ITransaction
         {
             private readonly double creditLimit;
             private const double INTEREST_RATE = 0.1995;
@@ -429,7 +429,7 @@ namespace GroupAssignment_Accounts
                 if (Balance + amount > creditLimit)
                 {
                     OnTransactionOccur(this, new TransactionEventArgs(person.Name, amount, false));
-       //             throw new AccountException(ExceptionType.CREDIT_LIMIT_HAS_BEEN_EXCEEDED);
+                    //             throw new AccountException(ExceptionType.CREDIT_LIMIT_HAS_BEEN_EXCEEDED);
                 }
 
                 base.Deposit(-amount, person);
@@ -455,7 +455,7 @@ namespace GroupAssignment_Accounts
 
 
 
-//BANK CLASS
+            //BANK CLASS
 
 
             public static class Bank
@@ -613,7 +613,3 @@ namespace GroupAssignment_Accounts
 
 
 }
-
-
-
-
