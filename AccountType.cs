@@ -1,6 +1,9 @@
 ﻿namespace Assignment_04_Accounts;
 
-public class AccountType
+//AccountType ENUM
+public enum AccountType
 {
-
+    Checking,
+    Saving,
+    Visa
 }

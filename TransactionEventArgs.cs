@@ -1,6 +1,13 @@
 ﻿namespace Assignment_04_Accounts;
 
-public class TransactionEventArgs
+//TransactionEventArgs CLASS
+public class TransactionEventArgs : LoginEventArgs
 {
+    public double Amount { get; }
 
+    public TransactionEventArgs(string personName, double amount, bool success) : base(personName, success)
+    {
+        Amount = amount;
+    }
 }
+

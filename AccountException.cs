@@ -1,6 +1,10 @@
 ﻿namespace Assignment_04_Accounts;
 
-public class AccountException
+//AccountException CLASS
+public class AccountException : Exception
 {
-
+    public AccountException(ExceptionType reason) : base(reason.ToString())
+    {
+    }
 }
+
